@@ -1,13 +1,16 @@
 package Ventanas;
 
 import AG.Figura;
-import AG.Individuo;
 import AG.Monalisa;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class Ventana extends javax.swing.JFrame {
 
@@ -28,8 +31,6 @@ public class Ventana extends javax.swing.JFrame {
         btn_parar = new javax.swing.JButton();
         lbl_aptitud = new javax.swing.JLabel();
         btn_reinicio = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        ovalos = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AG");
@@ -76,31 +77,22 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Número de Ovalos:");
-
-        ovalos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ovalos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ovalosActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(origen, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(btn_carga))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(origen, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addComponent(btn_carga))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ovalos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(110, 110, 110)
+                        .addComponent(btn_parar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(resultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -113,10 +105,6 @@ public class Ventana extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_reinicio)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(btn_parar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,12 +119,9 @@ public class Ventana extends javax.swing.JFrame {
                     .addComponent(lbl_aptitud))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(ovalos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_inicio)
-                    .addComponent(btn_reinicio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_parar)
+                    .addComponent(btn_reinicio)
+                    .addComponent(btn_parar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -157,29 +142,25 @@ public class Ventana extends javax.swing.JFrame {
 
     private void btn_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inicioActionPerformed
         try {
-            Monalisa ag = new Monalisa(imagen, 10, resultado);
+            Monalisa ag = new Monalisa(imagen, 10, resultado);//iteraciones
             ag.start();
             ag.join();
             pintar(resultado.getGraphics(), ag);
+            CreateImage(resultado);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se pudieron dibujar las figuras");
+            JOptionPane.showMessageDialog(null, "No se pudieron dibujar las figuras\n" + e);
         }
 
     }//GEN-LAST:event_btn_inicioActionPerformed
 
     private void btn_reinicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reinicioActionPerformed
-
     }//GEN-LAST:event_btn_reinicioActionPerformed
 
-    private void ovalosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ovalosActionPerformed
-
     private void pintar(Graphics g, Monalisa ag) {
-        for (Individuo individuo : ag.getPoblacion()) {
-            System.out.println(individuo);
-            for (Figura figura : individuo.getCromo()) {
-                g.setColor(new Color(figura.getRojo(), figura.getVerde(), figura.getAzul()));
+        for (int i = 0; i < 1; i++) {
+            System.out.println(ag.getPoblacion().get(i));
+            for (Figura figura : ag.getPoblacion().get(i).getCromo()) {
+                g.setColor(new Color(figura.getRojo(), figura.getVerde(), figura.getAzul(), figura.getAlpha()));
                 g.fillOval(
                         figura.getCoordenadas().x,
                         figura.getCoordenadas().y,
@@ -188,7 +169,10 @@ public class Ventana extends javax.swing.JFrame {
                 );
             }
         }
+    }
 
+    void CreateImage(JPanel panel) {
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -196,10 +180,8 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton btn_inicio;
     private javax.swing.JButton btn_parar;
     private javax.swing.JButton btn_reinicio;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_aptitud;
     private javax.swing.JLabel origen;
-    private javax.swing.JTextField ovalos;
     private javax.swing.JPanel resultado;
     // End of variables declaration//GEN-END:variables
 }

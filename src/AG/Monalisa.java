@@ -1,6 +1,5 @@
 package AG;
 
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -24,7 +23,7 @@ public class Monalisa extends Thread {
     }
 
     private void crearNuevaPoblacion() {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 300; i++) {//cuantos individuos tendremos
             poblacion.add(new Individuo(panel));
         }
     }

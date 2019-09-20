@@ -9,14 +9,16 @@ public class Figura{
     private int rojo;
     private int verde;
     private int azul;
+    private int alpha;
 
-    public Figura(Point coordenadas, int largo, int alto, int rojo, int verde, int azul) {
+    public Figura(Point coordenadas, int largo, int alto, int rojo, int verde, int azul,int alpha) {
         this.coordenadas = coordenadas;
         this.largo = largo;
         this.alto = alto;
         this.rojo = rojo;
         this.verde = verde;
         this.azul = azul;
+        this.alpha = alpha;
     }
 
     public int getAzul() {
@@ -70,5 +72,13 @@ public class Figura{
     @Override
     public String toString() {
         return "[x="+coordenadas.x+ ",y="+ coordenadas.y  + "], largo=" + largo + ", alto=" + alto + ", rojo=" + rojo + ", verde=" + verde + ", azul=" + azul + '}';
+    }
+
+    public int getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(int alpha) {
+        this.alpha = alpha;
     }
 }

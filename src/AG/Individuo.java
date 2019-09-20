@@ -24,15 +24,18 @@ public class Individuo {
     }
 
     public void generarCromo() {
-        cromo.add( new Figura(
-                new Point(new Random().nextInt(panel.getWidth()), new Random().nextInt(panel.getHeight())),//Agrega Coordenadas
-                new Random().nextInt(panel.getWidth()),//Agrega Largo
-                new Random().nextInt(panel.getHeight()),//Agrega Alto
-                new Random().nextInt(255),//R
-                new Random().nextInt(255),//G
-                new Random().nextInt(255)//B
-                )
-        );
+        for (int i = 0; i < 500; i++) {//cuantos ovalos le daremos a cada cromosoma
+            cromo.add(new Figura(
+                    new Point(new Random().nextInt(panel.getWidth()), new Random().nextInt(panel.getHeight())),//Agrega Coordenadas
+                    new Random().nextInt(panel.getWidth()/2),//Agrega Largo
+                    new Random().nextInt(panel.getHeight()/2),//Agrega Alto
+                    new Random().nextInt(255),//R
+                    new Random().nextInt(255),//G
+                    new Random().nextInt(255),//B
+                    new Random().nextInt(255)//alpha
+            )
+            );
+        }
     }
 
     @Override
